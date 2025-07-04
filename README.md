@@ -28,6 +28,7 @@ Web Summer Camp 2025 features six specialized tracks:
 - **Frontend**: React 18, React Router, Axios, Tailwind CSS
 - **Backend**: FastAPI, SQLAlchemy, PostgreSQL
 - **Database**: PostgreSQL 15
+- **Monitoring**: Prometheus, Grafana, PostgreSQL Exporter
 - **Containerization**: Docker & Docker Compose
 
 ## Project Structure
@@ -76,6 +77,8 @@ web-summer-camp-2025/
    - **Frontend**: http://localhost:3000
    - **Backend API**: http://localhost:8000
    - **API Documentation**: http://localhost:8000/docs
+   - **Grafana Dashboard**: http://localhost:3001 (admin/admin)
+   - **Prometheus**: http://localhost:9090
 
 ### Development Setup
 
@@ -126,6 +129,8 @@ If you prefer to run services individually for development:
 ## API Endpoints
 
 - `GET /` - Health check
+- `GET /health` - Detailed health check with database status
+- `GET /metrics` - Prometheus metrics endpoint
 - `POST /api/talks` - Submit a new talk
 - `GET /api/talks` - Get all submitted talks
 - `GET /api/talks/{talk_id}` - Get a specific talk
@@ -162,6 +167,9 @@ If you prefer to run services individually for development:
 - **frontend**: React development server (port 3000)
 - **backend**: FastAPI server with auto-reload (port 8000)
 - **db**: PostgreSQL 15 database (port 5432)
+- **prometheus**: Metrics collection and storage (port 9090)
+- **grafana**: Monitoring dashboards (port 3001)
+- **postgres-exporter**: PostgreSQL metrics exporter (port 9187)
 
 ## Database Migration
 
@@ -172,6 +180,29 @@ The application includes automatic database migration on startup. When you first
 3. Set default values for new columns
 
 No manual migration steps are required!
+
+## Monitoring
+
+The application includes comprehensive monitoring with Prometheus and Grafana:
+
+### Available Dashboards
+- **Conference API Dashboard**: HTTP requests, response times, talk operations, database performance
+- **PostgreSQL Dashboard**: Database connections, transactions, operations, and size metrics
+
+### Custom Metrics
+- `talks_created_total`: Total number of talks created
+- `talks_deleted_total`: Total number of talks deleted  
+- `talks_retrieved_total`: Total number of talks retrieved
+- `database_operations_duration_seconds`: Database operation performance
+- `active_talks_total`: Current number of talks in database
+
+### Testing Monitoring
+Run the monitoring test script to generate sample data:
+```bash
+python test-monitoring.py
+```
+
+For detailed monitoring setup and usage, see [MONITORING.md](MONITORING.md).
 
 ## Contributing
 
