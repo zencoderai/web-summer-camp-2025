@@ -10,9 +10,9 @@
     "start": "cd frontend && npm start"
   },
   "devDependencies": {
-    "@playwright/test": "^1.44.0",
-    "typescript": "^5.0.0",
-    "ts-node": "^10.9.0"
+    "@playwright/test": "^1.53.2",
+    "typescript": "^5.8.3",
+    "ts-node": "^10.9.2"
   },
   "private": true
 }

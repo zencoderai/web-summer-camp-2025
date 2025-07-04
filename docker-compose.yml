@@ -27,7 +27,7 @@ services:
       - ./backend:/app
 
   db:
-    image: postgres:15
+    image: postgres:17
     environment:
       - POSTGRES_DB=conference_db
       - POSTGRES_USER=conference_user
