@@ -28,6 +28,7 @@ Web Summer Camp 2025 features six specialized tracks:
 - **Frontend**: React 18, React Router, Axios, Tailwind CSS
 - **Backend**: FastAPI, SQLAlchemy, PostgreSQL
 - **Database**: PostgreSQL 15
+- **MCP Server**: Model Context Protocol server for AI integration
 - **Monitoring**: Prometheus, Grafana, PostgreSQL Exporter
 - **Containerization**: Docker & Docker Compose
 
@@ -51,6 +52,14 @@ web-summer-camp-2025/
 │   ├── migrate.py          # Database migration script
 │   ├── Dockerfile
 │   └── requirements.txt
+├── mcp-server/              # Model Context Protocol server
+│   ├── src/
+│   │   ├── index.ts        # Main MCP server implementation
+│   │   └── database.ts     # Database service and types
+│   ├── dist/               # Compiled JavaScript
+│   ├── Dockerfile
+│   ├── package.json
+│   └── README.md
 └── docker-compose.yml      # Docker Compose configuration
 ```
 
@@ -77,6 +86,7 @@ web-summer-camp-2025/
    - **Frontend**: http://localhost:3000
    - **Backend API**: http://localhost:8000
    - **API Documentation**: http://localhost:8000/docs
+   - **MCP Server**: http://localhost:3002 (HTTP transport)
    - **Grafana Dashboard**: http://localhost:3001 (admin/admin)
    - **Prometheus**: http://localhost:9090
 
@@ -167,6 +177,7 @@ If you prefer to run services individually for development:
 - **frontend**: React development server (port 3000)
 - **backend**: FastAPI server with auto-reload (port 8000)
 - **db**: PostgreSQL 15 database (port 5432)
+- **mcp-server**: Model Context Protocol server (port 3002)
 - **prometheus**: Metrics collection and storage (port 9090)
 - **grafana**: Monitoring dashboards (port 3001)
 - **postgres-exporter**: PostgreSQL metrics exporter (port 9187)
@@ -203,6 +214,56 @@ python test-monitoring.py
 ```
 
 For detailed monitoring setup and usage, see [MONITORING.md](MONITORING.md).
+
+## MCP Server
+
+The project includes a Model Context Protocol (MCP) server that provides AI assistants with access to conference talk data through standardized tools and resources.
+
+### MCP Tools Available
+
+1. **List All Talks** (`list-all-talks`)
+   - Retrieves all submitted talks from the conference database
+   - No parameters required
+
+2. **Filter Talks** (`filter-talks`)
+   - Filter talks by speaker name, level, track, and duration
+   - Supports partial matching for speaker names and tracks
+   - Parameters: `speaker_name`, `level`, `track`, `duration`, `min_duration`, `max_duration`
+
+3. **Search Talks by Title** (`search-talks-by-title`)
+   - Search for talks by title with both exact and partial matching
+   - Parameters: `search_term` (required), `exact_match` (optional, default: false)
+
+### MCP Resources Available
+
+- **Server Health** (`conference://health`) - Server and database status
+- **Server Information** (`conference://info`) - Server metadata and available tools
+
+### Using the MCP Server
+
+#### With Claude Desktop
+Add to your `claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "web-summer-camp": {
+      "command": "node",
+      "args": ["/path/to/web-summer-camp-2025/mcp-server/dist/index.js"],
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_NAME": "conference_db",
+        "DB_USER": "conference_user",
+        "DB_PASSWORD": "conference_pass"
+      }
+    }
+  }
+}
+```
+
+#### HTTP Transport
+The MCP server is also available via HTTP at `http://localhost:3002/mcp` when running with Docker Compose.
+
+For detailed MCP server documentation, see [mcp-server/README.md](mcp-server/README.md).
 
 ## Contributing
 

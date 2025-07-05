@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "web-summer-camp": {
+      "command": "node",
+      "args": ["/Users/alexshershebnev/conferences/web-summer-camp-2025/mcp-server/dist/index.js"],
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "5432",
+        "DB_NAME": "conference_db",
+        "DB_USER": "conference_user",
+        "DB_PASSWORD": "conference_pass"
+      }
+    }
+  }
+}

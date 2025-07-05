@@ -1,0 +1,51 @@
+{
+  "name": "mcp-web-summer-camp",
+  "version": "1.0.0",
+  "description": "MCP server for Web Summer Camp 2025 conference",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-web-summer-camp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "start:stdio": "node dist/index.js stdio",
+    "start:streamableHttp": "node dist/index.js streamableHttp",
+    "dev": "tsx src/index.ts",
+    "dev:stdio": "tsx src/index.ts stdio",
+    "dev:streamableHttp": "tsx src/index.ts streamableHttp",
+    "prepublishOnly": "npm run build",
+    "postinstall": "echo 'MCP Web Summer Camp server installed! Run with: mcp-web-summer-camp'"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "conference",
+    "web-summer-camp"
+  ],
+  "author": "Web Summer Camp 2025",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/web-summer-camp/web-summer-camp-2025.git",
+    "directory": "mcp-server"
+  },
+  "homepage": "https://github.com/web-summer-camp/web-summer-camp-2025/tree/main/mcp-server",
+  "bugs": {
+    "url": "https://github.com/web-summer-camp/web-summer-camp-2025/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.10.0",
+    "@types/pg": "^8.10.9",
+    "tsx": "^4.6.2",
+    "typescript": "^5.3.3"
+  }
+}
