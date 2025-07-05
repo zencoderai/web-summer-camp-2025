@@ -1,0 +1,50 @@
+{
+    "zencoder.enableRepoIndexing": true,
+    "zencoder.mcpServers": {
+        "Slack_remote": {
+            "type": "http",
+            "url": "https://slack-community.mcps.zencoder.ai/mcp",
+            "headers": {
+                "Authorization": "Bearer websummercamp2025"
+            }
+        },
+        "git": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-git"
+            ]
+        },
+        "playwright": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@playwright/mcp@latest",
+                "--isolated",
+                "--headless",
+                "--browser",
+                "firefox",
+                "--user-agent",
+                "\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.112 Safari/537.36\""
+            ]
+        },
+        "postgresql": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-postgres",
+                "postgresql://conference_user:conference_pass@localhost:5432/conference_db"
+            ]
+        },
+        "github": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "--env-file",
+                "/Users/alexshershebnev/.env.github",
+                "ghcr.io/github/github-mcp-server"
+            ]
+        }
+    }
+}
