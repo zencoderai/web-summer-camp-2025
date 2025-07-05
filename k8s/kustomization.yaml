@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: conference-app
+
+resources:
+  - namespace.yaml
+  - secrets.yaml
+  - configmaps.yaml
+  - prometheus-config.yaml
+  - persistent-volumes.yaml
+  - postgres.yaml
+  - backend.yaml
+  - frontend.yaml
+  - prometheus.yaml
+  - grafana.yaml
+  - ingress.yaml
+
+images:
+  - name: conference-backend
+    newTag: latest
+  - name: conference-frontend
+    newTag: latest
+
+commonLabels:
+  app.kubernetes.io/name: conference-app
+  app.kubernetes.io/version: "1.0.0"
+  app.kubernetes.io/managed-by: kustomize
+
+namespace: conference-app
